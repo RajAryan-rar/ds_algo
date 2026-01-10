@@ -5,9 +5,10 @@ using namespace std;
 vector<int> dp;
 //memoization / top-down
 int f(vector<int>& nums, int i) { //[1,11,9,5,10] -> 21
+    if(dp[i] != -1) return dp[i];
     if(i >= nums.size()) return 0;
 
-    return max(nums[i] + f(nums,i+2), f(nums,i+1));
+    return dp[i] = max(nums[i] + f(nums,i+2), f(nums,i+1));
 }
 
 //tabulation just lc submission

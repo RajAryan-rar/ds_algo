@@ -30,13 +30,28 @@ int f(int n) {
     return dp[n] = ans;
 }
 
+int f_bu(int n) {
+    dp.clear();
+    dp.resize(1000005, INT_MAX);
+    dp[0] = 0;
+    for(int i=1; i<=9; i++) dp[i] = 1;
+
+    for(int i=10; i<=n; i++) {
+        vector<int> d = getDigits(i);
+        for(int j=0; j<d.size(); j++) {
+            dp[i] = min(dp[i], 1+dp[i-d[j]]);
+        }
+    }
+    return dp[n];
+}
+
 int main() {
     int n;
     cin>>n;
 
     dp.clear();
     dp.resize(1000005,-1);
-    cout<<f(n);
+    cout<<f_bu(n);
 
     return 0;
 }

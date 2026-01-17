@@ -3,6 +3,7 @@
 #include<climits>
 using namespace std;
 
+
 class Solution {
 public:
     vector<int> arr;
@@ -28,15 +29,11 @@ public:
         arr = nums;
         dp.clear();
         dp.resize(5005, INT_MIN);
+        int ans = 0;
         for(int i=2; i<nums.size(); i++) {
-            int x = f(i);
+            ans += f(i);
         }
-        int count = 0;
-        for(int i=0; i<nums.size(); i++) {
-            if(dp[i] == INT_MIN) continue;
-            else count += dp[i];
-        }
-        return count;
+        return ans;
 
         //return f_bu();
     }

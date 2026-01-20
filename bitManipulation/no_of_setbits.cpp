@@ -9,8 +9,8 @@ int countSetBits(int n) {
 }
 
 /*
-Brian Kernighan's algorithm : an efficient method used to count the number of set bits (1s)
-                              in the binary representation of an integer.
+Brian Kernighan's algorithm : an efficient method generally used to count the number 
+                        of set bits (1s) in the binary representation of an integer.
 The algorithm is optimized to run in a number of iterations equal to the 
 number of set bits, which is faster than checking every single bit
 if the number of set bits is small. 

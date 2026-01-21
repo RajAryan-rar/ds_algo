@@ -31,9 +31,9 @@ ll f_bu() {
                 dp[i][j] = max(arr[i],arr[j]);
             }
             else {
-                ll x = (i+2 <= j) ? dp[i+2][j] : 0;
-                ll y = (i+1 <= j-1) ? dp[i+1][j-1] : 0;
-                ll z = (i <= j-2) ? dp[i][j-2] : 0;
+                ll x = dp[i+2][j];
+                ll y = dp[i+1][j-1];
+                ll z = dp[i][j-2];
 
                 dp[i][j] = max(arr[i] + min(x,y), arr[j] + min(y,z));
             }

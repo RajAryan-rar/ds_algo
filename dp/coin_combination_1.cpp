@@ -7,7 +7,7 @@ using namespace std;
 
 vector<int> arr;
 
-int dp[1000005];
+vector<int> dp;
 
 int f(int x) {
     if(x == 0) return 1;
@@ -24,19 +24,16 @@ int f(int x) {
 
 }
 
-//To be fixed!!!
 int f_bu(int target) {
-    memset(dp, 0, sizeof(dp));
+    
     dp[0] = 1;
-    for (int x = 1; x <= target; x++) {
-        for (int coin : arr) {
-            if (x - coin < 0) continue;
-            
-            dp[x] = (dp[x]%mod + dp[x-coin]%mod) % mod;
-            
+    for(int x=1; x<=target; x++) {
+        for(int j=0; j<arr.size(); j++) {
+            if(arr[j] > x) continue;
+            dp[x] = (dp[x] + dp[x-arr[j]])%mod;
         }
     }
-    return dp[target];
+    return dp[target]%mod;
 }
 
 int main() {
@@ -47,8 +44,9 @@ int main() {
     for(int i=0; i<n; i++) {
         cin>>arr[i];
     }
-    memset(dp, -1, sizeof(dp));
-    cout<<f(x);
+    // dp.resize(x+1, -1);
+    dp.resize(x+1, 0);
+    cout<<f_bu(x);
     
 
     return 0;

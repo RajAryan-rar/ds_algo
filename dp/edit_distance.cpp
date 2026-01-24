@@ -36,7 +36,7 @@ int minDistance(string word1, string word2) {
     if(m == 0 && n == 0) return 0;
 
     dp.clear();
-    dp.resize(505, vector<int>(505,-1));
+    dp.resize(5005, vector<int>(5005,-1));
 
     string s1 = " ";
     string s2 = " ";

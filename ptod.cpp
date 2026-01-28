@@ -1,5 +1,6 @@
 #include<iostream>
 #include<climits>
+#include<vector>
 using namespace std;
 
 class Node{
@@ -55,17 +56,41 @@ int main() {
 
     // isSameAfterReversals(526);
 
-    long long ans = 0;
-    int x =  -125;
-    while (x != 0) {
-        ans = ans * 10 + x % 10;
-        if (ans > INT_MAX || ans < INT_MIN)
-            return 0;
-        x /= 10;
-        cout<<"x: "<<x<<", ans: "<<ans<<endl;
+    // long long ans = 0;
+    // int x =  -125;
+    // while (x != 0) {
+    //     ans = ans * 10 + x % 10;
+    //     if (ans > INT_MAX || ans < INT_MIN)
+    //         return 0;
+    //     x /= 10;
+    //     cout<<"x: "<<x<<", ans: "<<ans<<endl;
+    // }
+
+    // cout<<ans;
+
+    int n;
+    cin>>n;
+    vector<int> arr(n);
+
+    for(int i=0; i<n; i++) {
+        cin>>arr[i];
+    }
+    vector<vector<int>> res;
+    for(int i=0; i<n; i++) {
+        vector<int> v;
+        for(int j=i; j<n; j++) {
+            v.push_back(arr[j]);
+            res.push_back(v);
+        }
     }
 
-    cout<<ans;
+    for(int i=0; i<res.size(); i++) {
+        for(auto ele : res[i]) {
+            cout<<ele<<" ";
+        }
+        cout<<endl;
+    }
+
 
     return 0;
 }

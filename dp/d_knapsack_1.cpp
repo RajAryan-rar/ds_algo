@@ -4,34 +4,54 @@ using namespace std;
 
 #define ll long long int
 
-vector<vector<int>> arr;
+vector<int> weight;
+vector<int> value;
+
 vector<vector<ll>> dp;
 
-ll f(int i, int capacity) {
-    if(i >= arr.size()) return 0;
-    if(dp[i][capacity] != -1) return dp[i][capacity];
+ll f(int i, int cap) {
+    if(i >= weight.size()) return 0;
+    if(dp[i][cap] != -1) return dp[i][cap];
     
-    ll pick = 0;
-    if(arr[i][0] <= capacity) {
-        pick = arr[i][1] + f(i+1,capacity-arr[i][0]);
+    ll ans = f(i+1,cap);
+    if(weight[i] <= cap) {
+        ans = max(ans, value[i] + f(i+1,cap-weight[i]));
     }
-    ll not_pick = f(i+1,capacity);
 
-    return dp[i][capacity] = max(pick, not_pick);
+    return dp[i][cap] = ans;
 }
 
+ll f_bu(int cap) {
+    dp.resize(105, vector<ll>(100005,0));
+
+    for(int i=value.size()-1; i>=0; i--) {
+        for(int curr_cap=0; curr_cap<=cap; curr_cap++) {
+                    dp[i][curr_cap] = max(dp[i+1][curr_cap], (weight[i] <= curr_cap) ? value[i] + dp[i+1][curr_cap-weight[i]] : 0);
+        }
+    }
+
+    return dp[0][cap];
+}
 
 int main() {
-    int N,W;
-    cin>>N>>W;
+    int n,cap;
+    cin>>n>>cap;
 
-    arr.resize(N,vector<int>(2));
+    vector<int> wt(n);
+    vector<int> val(n);
 
-    for(int i=0; i<N; i++) {
-        cin>>arr[i][0]>>arr[i][1];
+    for(int i=0; i<n; i++) {
+        cin>>wt[i]>>val[i];
     }
-    dp.resize(105, vector<ll>(100005,-1));
-    cout<<f(0,W);
+
+    weight = wt;
+    value = val;
+
+    // dp.resize(105, vector<ll>(100005,-1));
+
+    // cout<<f(0,cap);
+
+    cout<<f_bu(cap);
 
 
     return 0;

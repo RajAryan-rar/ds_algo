@@ -43,8 +43,22 @@ int main() {
         }
     }
     dp.clear();
-    dp.resize(n+1, vector<ll>(n+1,-1));
-    cout<<f(1,n);
+    // dp.resize(n+1, vector<ll>(n+1,-1)); //for top down
+    // cout<<f(1,n);
+    
+
+    //BOTTOM UP implementation :-
+    dp.resize(n+1, vector<ll>(n+1,0));
+    for(int len=2; len<=n; len++) {
+        for(int i=1; i<=n-len+1; i++) {
+            int j = i+len-1;
+            dp[i][j] = inf;
+            for(int k=i; k<=j-1; k++) {
+                dp[i][j] = min(dp[i][j], dp[i][k] + dp[k+1][j] + sum[i][j]);
+            }
+        }
+    }
+    cout<<dp[1][n];
 
     return 0;
 }

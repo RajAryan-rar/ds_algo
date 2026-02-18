@@ -35,7 +35,7 @@ int main() {
     sort(arr.begin(), arr.end());
 
     dp.clear();
-    dp.resize(arr.size(), vector<int>(arr.size(),-1));
+    dp.resize(arr.size()+1, vector<int>(arr.size()+1,-1));
 
     cout<<f(1,arr.size()-2);
 

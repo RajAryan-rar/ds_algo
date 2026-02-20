@@ -23,6 +23,29 @@ public:
         return dp[i] = ans;
     }
 
+    int fbu(string s) {
+        dp.clear();
+        dp.resize(s.length()+1, 0);
+
+        dp[0] = (s[0] != '0');
+        if(s.size() > 1) {
+            if(s[1] != '0') dp[1] += dp[0];
+            if(s[1-1] - '0' > 0 && (s[0] - '0')*10 + (s[1] - '0') <= 26) dp[1]++;
+        }
+        for(int i=2; i<s.length(); i++) { // i:2 -> s.len-1, 2 ==> len 3
+            int ans = 0;
+
+            if(s[i] != '0') {
+                ans += dp[i-1];
+            }
+            if(s[i-1] - '0' > 0 && (s[i-1] - '0') * 10 + (s[i] - '0') <= 26) {
+                ans += dp[i-2];
+            }
+            dp[i] = ans;
+        }
+        return dp[s.length()-1];
+    }
+
     int f2(string &s, int i) {
         if(i >= s.length()) return 1;
         if(s[i] == '0') return 0;

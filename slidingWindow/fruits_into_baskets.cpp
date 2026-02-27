@@ -6,7 +6,7 @@ using namespace std;
 
 class Solution {
 public:
-    int bruteForce(vector<int> nums) {
+    int totalFruitsBruteForce(vector<int> nums) {
         int maxLen = 0;
         
         for(int i=0; i<nums.size(); i++) {
@@ -20,7 +20,7 @@ public:
         return maxLen;
     }
 
-    int totalFruits(vector<int> nums) {
+    int totalFruitsBetter(vector<int> nums) {
         unordered_map<int,int> mp;
         int l = 0, r = 0, maxLen = 0;
 
@@ -33,6 +33,22 @@ public:
                     if(mp[nums[l]] == 0) mp.erase(nums[l]);
                     l++;
                 }
+            }
+            r++;
+        }
+        return maxLen;
+    }
+
+    int totalFruitOptimal(vector<int>& fruits) {
+        unordered_map<int,int> mp;
+        int maxLen = 0, l = 0, r = 0;
+        while(r < fruits.size()) {
+            mp[fruits[r]]++;
+            if(mp.size() <= 2) maxLen = max(maxLen, r-l+1);
+            else {
+                mp[fruits[l]]--;
+                if(mp[fruits[l]] == 0) mp.erase(fruits[l]);
+                l++;
             }
             r++;
         }

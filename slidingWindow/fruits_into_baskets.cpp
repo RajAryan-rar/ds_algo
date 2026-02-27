@@ -39,7 +39,7 @@ public:
         return maxLen;
     }
 
-    int totalFruitOptimal(vector<int>& fruits) {
+    int totalFruitsOptimal(vector<int>& fruits) {
         unordered_map<int,int> mp;
         int maxLen = 0, l = 0, r = 0;
         while(r < fruits.size()) {
@@ -66,7 +66,7 @@ int main() {
     }
 
     Solution s;
-    cout<<s.totalFruits(arr);
+    cout<<s.totalFruitsOptimal(arr);
 
     return 0;
 }

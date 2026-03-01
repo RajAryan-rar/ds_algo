@@ -6,22 +6,15 @@ class Solution {
 public:
     vector<int> sequentialDigits(int low, int high) {
         string s = "123456789";
-        int n = high, maxLen = 0;
-        while(n > 0) {
-            maxLen++;
-            n /= 10;
-        }
 
         vector<int> result;
-        for(int len=2; len<=maxLen; len++) {
-            int i=0, j=len-1;
-            while(j < s.length()) {
-                string str = s.substr(i,len);
+        for(int len=2; len<=s.length(); len++) {
+            for(int sIdx=0; sIdx<=s.length()-len; sIdx++) {
+                string str = s.substr(sIdx,len);
                 int num = stoi(str);
-                if(num > high) break;
-                if(num >= low) result.push_back(num);
-                i++;
-                j++;
+                if(num >= low && num <= high) {
+                    result.push_back(num);
+                }
             }
         }
         return result;

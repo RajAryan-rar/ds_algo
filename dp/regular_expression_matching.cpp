@@ -17,6 +17,22 @@ public:
         } else return dp[i][j] = false;
     }
 
+    bool f_bu(string &s, string &p) {
+        dp.clear();
+        dp.resize(25,vector<int>(25,0));
+        dp[s.size()][p.size()] = true;
+        for(int i=s.size(); i>=0; i--) {
+            for(int j=p.size()-1; j>=0; j--) {
+                if(j+1 < p.size() && p[j+1] == '*') {
+                    dp[i][j] = dp[i][j+2] || ((i<s.size() && (s[i] == p[j] || p[j] == '.')) ? dp[i+1][j] : false);
+                } else if(i < s.size() && s[i] == p[j] || p[j] == '.') {
+                    dp[i][j] = dp[i+1][j+1];
+                } else dp[i][j] = false;
+            }
+        }
+        return dp[0][0];
+    }
+
     bool isMatch(string s, string p) {
         dp.clear();
         dp.resize(25, vector<int>(25,-1));

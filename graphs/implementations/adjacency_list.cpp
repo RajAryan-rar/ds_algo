@@ -4,7 +4,12 @@
 using namespace std;
 
 vector<list<int>> graph;
-
+/**
+ * bi_dir == true ==> undirected graph basically
+ *           false ==> directed graph basically
+ * 
+ * Below is implementation for unweighted graph
+ */
 void add_edge(int src, int dest, bool bi_dir = true) {
     graph[src].push_back(dest);
     if(bi_dir) {

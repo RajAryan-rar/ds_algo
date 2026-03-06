@@ -1,5 +1,6 @@
 #include<iostream>
 #include<vector>
+#include<queue>
 using namespace std;
 
 class Solution {
@@ -13,18 +14,56 @@ public:
         dfs(grid,i,j-1);
         dfs(grid,i,j+1);
     }
-    int numIslands(vector<vector<char>>& grid) {
-        int count = 0;
 
-        for(int i=0; i<grid.size(); i++) {
-            for(int j=0; j<grid[0].size(); j++) {
+    int bfs(vector<vector<char>>& grid) {
+        int m = grid.size();
+        int n = grid[0].size();
+
+        int cc = 0;
+        vector<vector<int>> dir = {{1,0},{-1,0},{0,1},{0,-1}};
+        for(int i=0; i<m; i++) {
+            for(int j=0; j<n; j++) {
                 if(grid[i][j] == '1') {
-                    dfs(grid,i,j);
-                    count++;
+                    cc++;
+                    grid[i][j] = '0';
+                    queue<pair<int,int>> q;
+                    q.push({i,j});
+
+                    while(!q.empty()) {
+                        auto cell = q.front();
+                        q.pop();
+
+                        int x = cell.first;
+                        int y = cell.second;
+
+                        for(auto d : dir) {
+                            int nx = x + d[0];
+                            int ny = y + d[1];
+
+                            if(nx<0 || ny<0 || nx>=m || ny>=n || grid[nx][ny] == '0') continue;
+                            grid[nx][ny] = '0';
+                            q.push({nx,ny}); 
+                        }
+                    }
                 }
             }
         }
-        return count;
+        return cc;
+    }
+
+    int numIslands(vector<vector<char>>& grid) {
+        // int count = 0;
+
+        // for(int i=0; i<grid.size(); i++) {
+        //     for(int j=0; j<grid[0].size(); j++) {
+        //         if(grid[i][j] == '1') {
+        //             dfs(grid,i,j);
+        //             count++;
+        //         }
+        //     }
+        // }
+        // return count;
+        return bfs(grid);
     }
 };
 

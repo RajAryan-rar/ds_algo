@@ -1,5 +1,7 @@
 #include<iostream>
-#include<bits/stdc++.h>
+#include<vector>
+#include<list>
+#include<queue>
 using namespace std;
 
 class Solution {
@@ -7,23 +9,22 @@ public:
     vector<list<int>> graph;
     int v;
 
-    void add_edge(int a, int b, bool bi_dir = true) {
+    void add_edge(int a, int b, bool bi_dir=true) {
         graph[a].push_back(b);
         if(bi_dir) graph[b].push_back(a);
     }
 
-    vector<int> findOrder(int numCourses, vector<vector<int>>& prerequisites) {
-        v = numCourses;
+    bool canFinish(int numCourses , vector<vector<int>>& prerequisites ) {
+        v = numCourses ;
+        graph.clear();
         graph.resize(v);
-        int e = prerequisites.size();
-
-        for(int i=0; i<e; i++) {
-            int a = prerequisites[i][1];
-            int b = prerequisites[i][0];
+        for(int i=0; i<prerequisites .size(); i++) {
+            int a = prerequisites [i][1];
+            int b = prerequisites [i][0];
 
             add_edge(a,b,false);
         }
-
+        
         vector<int> indeg(v,0);
         for(int i=0; i<v; i++) {
             for(auto neighbor : graph[i]) {
@@ -36,18 +37,18 @@ public:
             if(indeg[i] == 0) q.push(i);
         }
 
-        vector<int> result;
-        while(!q.empty()) {
-            auto curr = q.front();
+        int count = 0;
+        while(q.size() > 0) {
+            int curr = q.front();
             q.pop();
-            result.push_back(curr);
+            count++;
 
             for(auto neighbor : graph[curr]) {
                 indeg[neighbor]--;
-                if(indeg[neighbor] == 0) q.push(neighbor);
+                if(indeg[neighbor] == 0) q.push(neighbor);    
             }
         }
-        return (result.size() == v) ? result : vector<int>{};
+        return count == v;
     }
 };
 
@@ -64,9 +65,8 @@ int main() {
     }
 
     Solution s;
-    vector<int> ans = s.findOrder(numCourses,prereqs);
-
-    for(auto ele : ans) cout<<ele<<" ";
+    if(s.canFinish(numCourses,prereqs)) cout<<"true";
+    else cout<<"false";
 
     return 0;
 }

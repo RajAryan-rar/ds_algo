@@ -1,0 +1,14 @@
+Summary Table
+
+Method 	            Best Used For	            Key Concept
+
+DFS	                Directed & Undirected	    Back edges, recursion stack (directed), parent tracking (undirected)
+Topological Sort	Directed (DAGs)	            In-degree count, Kahn's Algorithm (BFS)
+DSU	                Undirected	                Find parent representatives, Union-Find
+
+---------------x-------------------x--------------------------x------------------------------x---------------------------
+
+Important Distinctions:
+
+*For undirected graphs, DSU is often preferred for its efficiency in dynamic connectivity scenarios.
+*For directed graphs, DFS (with a recursion stack) or Topological Sort (Kahn's) are standard.

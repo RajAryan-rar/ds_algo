@@ -36,17 +36,6 @@ bool hasCycle() {
     return false;
 }
 
-void display() {
-    cout<<endl;
-    for(int i=0; i<graph.size(); i++) {
-        cout<<i<<" --> ";
-        for(auto ele : graph[i]) {
-            cout<<ele<<" ";
-        }
-        cout<<endl;
-    }
-}
-
 int main() {
     cin>>v;
 
@@ -59,8 +48,6 @@ int main() {
         cin>>s>>d;
         add_edge(s,d);
     }
-
-    display();
 
     if(hasCycle()) cout<<"Cycle detected!!!"<<endl;
     else cout<<"No cycle present in the graph";

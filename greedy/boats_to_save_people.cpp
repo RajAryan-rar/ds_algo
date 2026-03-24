@@ -12,10 +12,6 @@ public:
 
         int shipCount = 0;
         while(i <= j) {
-            if(i == j) {
-                shipCount++;
-                break;
-            }
             if(people[i]+people[j] <= limit) {
                 shipCount++;
                 i++;

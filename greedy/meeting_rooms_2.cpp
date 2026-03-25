@@ -14,13 +14,13 @@ class Solution {
         while(i<start.size()) {
             if(start[i] < end[j]) {
                 rooms++;
+                ans = max(ans,rooms);
                 i++;
             } 
             else {
                 rooms--;
                 j++;
             }
-            ans = max(ans,rooms);
         }
         return ans;
     }

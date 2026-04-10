@@ -2,42 +2,28 @@
 using namespace std;
 #include<vector>
 
-#define ll long long int
+#define mod 1000000007
+class Solution {
+public:
+    int xorAfterQueries(vector<int>& nums, vector<vector<int>>& queries) {
+        for(int i=0; i<queries.size(); i++) {
+            int l = queries[i][0], r = queries[i][1], k = queries[i][2], v = queries[i][3];
 
-vector<int> weight;
-vector<int> value;
+            while(l <= r) {
+                nums[l] = (nums[l]%mod * v%mod)%mod;
+                l += k;
+            }
+        }
 
-vector<vector<ll>> dp;
+        int ans = 0;
 
-ll f(int i, int cap) {
-    if(i == weight.size()) return 0;
-    if(dp[i][cap] != -1) return dp[i][cap];
-
-    ll ans = f(i+1,cap);
-    if(weight[i] <= cap) {
-        ans = max(ans, (ll)(value[i] + f(i+1, cap-weight[i])));
+        for(int ele : nums) ans ^= ele;
+        return ans;
     }
-
-    return dp[i][cap] = ans;
-}
+};
 
 int main() {
-    int n,cap;
-    cin>>n>>cap;
-
-    vector<int> wt(n);
-    vector<int> val(n);
-
-    for(int i=0; i<n; i++) {
-        cin>>wt[i]>>val[i];
-    }
-
-    weight = wt;
-    value = val;
-
-    dp.resize(105, vector<ll>(100005,-1));
-
-    cout<<f(0,cap);
+    
 
     return 0;
 }

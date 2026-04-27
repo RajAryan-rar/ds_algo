@@ -2,34 +2,36 @@
 #include<stack>
 using namespace std;
 
-bool check(char ch1, char ch2) {
-    if(ch1 == '(' && ch2 == ')') return true;
-    if(ch1 == '{' && ch2 == '}') return true;
-    if(ch1 == '[' && ch2 == ']') return true;
-    else return false;
-}
+class Solution {
+public:
 
-bool isValid(string s) {
-    stack<char> st;
-    for(int i=0; i<s.length(); i++) {
-        if(s[i] == '(' || s[i] == '{' || s[i] == '[') {
-            st.push(s[i]);
-        } else {
-            if(st.size()==0 || check(st.top(), s[i]) == false) return false;
+    bool check(char ch1, char ch2) {
+        if(ch1 == '(' && ch2 == ')') return true;
+        if(ch1 == '{' && ch2 == '}') return true;
+        if(ch1 == '[' && ch2 == ']') return true;
+        else return false;
+    }
+
+    bool isValid(string s) {
+        stack<char> st;
+        for(int i=0; i<s.length(); i++) {
+            if(s[i] == '(' || s[i] == '{' || s[i] == '[') st.push(s[i]);
             else {
-                if(st.empty() == true) return false;
-                st.pop();
+                if(st.size() == 0) return false;
+                if(check(st.top(),s[i])) st.pop();
+                else return false;
             }
-        }
-    }    
-    return (st.size() != 0) ? false : true;
-}
-
+        }    
+        return st.size() == 0;
+    }
+};
 int main() {
     string s;
     cin>>s;
 
-    cout<<isValid(s);
+    Solution sol;
+
+    cout<<sol.isValid(s);
 
     return 0;
 }

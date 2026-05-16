@@ -1,0 +1,43 @@
+#include<iostream>
+#include<bits/stdc++.h>
+using namespace std;
+
+class Solution {
+  public:
+    bool hasTripletSum(vector<int> &arr, int target) {
+        int n = arr.size();
+        sort(arr.begin(),arr.end());
+        
+        for(int i=0; i<n; i++) {
+            if(i>0 && arr[i] == arr[i-1]);
+            int j = i + 1;
+            int k = n - 1;
+            
+            while(j < k) {
+                int sum = arr[i] + arr[j] + arr[k];
+                if(sum < target) j++;
+                else if(sum > target) k--;
+                else return true;
+                
+            }
+        }
+        return false;
+    }
+};
+
+int main() {
+    int n, target;
+    cin>>n>>target;
+
+    vector<int> arr(n);
+
+    for(int i=0; i<n; i++) {
+        cin>>arr[i];
+    }
+
+    Solution s;
+    if(s.hasTripletSum(arr,target)) cout<<"True"<<endl;
+    else cout<<"False"<<endl;
+
+    return 0;
+}
